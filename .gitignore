@@ -1,0 +1,20 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Entornos
+.env
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.swp
+
+# VS Code
+.vscode/
+
+# Configuración de despliegue opcional
+fly.toml
