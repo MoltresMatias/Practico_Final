@@ -4,18 +4,18 @@ const bodyParser = require('body-parser');
 
 const pg = require('pg');
 
+const postsRoute = require('./routes/posts');
+const userRoute = require('./routes/user');
+
+const app = express();
+
 // Middleware para parsear JSON y formularios
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const app = express();
-
-const postsRoute = require('./routes/posts');
-const userRoute = require('./routes/user');
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/posts", postsRoute)
