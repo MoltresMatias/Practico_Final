@@ -1,3 +1,4 @@
+/*
 const http = require('http');
 const app = require('./app');
 const port = 3000;
@@ -17,3 +18,11 @@ const server = http.createServer(app);
 server.listen(port);
 
 module.exports = app;
+*/
+
+
+const serverless = require('serverless-http');
+const app = require('./app');
+
+
+module.exports.handler = serverless(app);
