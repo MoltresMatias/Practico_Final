@@ -71,15 +71,17 @@ function login(req, res) {
         } else {
             bcryptjs.compare(req.body.password, user.password, function (err, result) {
                 if (result) {
-                    const token = jwt.sign({
-                        email: user.email,
-                        userId: user.id
-                    }, process.env.JWT_KEY, function (err, token) {
-                        res.status(200).json({
-                            message: "Auntenticacion aprobada",
-                            token: token
-                        });
+                    const token = jwt.sign(
+                        { email: user.email, userId: user.id },
+                        process.env.JWT_KEY,
+                        { expiresIn: '1h' } // opcional: duración del token
+                    );
+
+                    res.status(200).json({
+                        message: "Autenticación aprobada",
+                        token: token
                     });
+
                 } else {
                     res.status(401).json({
                         message: "Credencial invalida!",
