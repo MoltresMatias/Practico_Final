@@ -1,4 +1,4 @@
-/*
+
 const express = require('express');
 //const PORT = process.env.PORT || 3000
 const bodyParser = require('body-parser');
@@ -34,32 +34,4 @@ app.post('/ping', (req, res) => {
 
 
 module.exports = app;
-*/
-const express = require('express');
-const pg = require('pg');
-const postsRoute = require('./routes/posts');
-const userRoute = require('./routes/user');
-const cors = require('cors');
 
-const app = express();
-
-app.use(cors());
-
-app.use(express.json({ limit: '50mb' }));
-
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
-app.use("/posts", postsRoute)
-app.use("/user", userRoute);
-
-app.get('/', (req, res) => {
-    res.send('API funcionando en Vercel 🚀');
-});
-
-
-app.post('/ping', (req, res) => {
-    res.json({ status: 'ok', body: req.body });
-});
-
-
-module.exports = app;
