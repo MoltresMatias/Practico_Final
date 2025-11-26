@@ -39,6 +39,7 @@ const express = require('express');
 const pg = require('pg');
 const postsRoute = require('./routes/posts');
 const userRoute = require('./routes/user');
+const cors = require('cors');
 
 const app = express();
 
