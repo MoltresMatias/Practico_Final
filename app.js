@@ -1,6 +1,6 @@
 
 const express = require('express');
-//const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 const bodyParser = require('body-parser');
 
 const pg = require('pg');
@@ -10,13 +10,9 @@ const userRoute = require('./routes/user');
 
 const app = express();
 
-// Middleware para parsear JSON y formularios
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-
-//app.use(express.json());
-//app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/posts", postsRoute)
