@@ -15,6 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/posts", postsRoute)
 app.use("/user", userRoute);
 
+app.post('/ping', (req, res) => {
+    res.json({ status: 'ok', body: req.body });
+});
+
 
 
 module.exports = app;
