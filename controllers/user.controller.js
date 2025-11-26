@@ -45,6 +45,7 @@ function signUp(req, res) {
                             message: "Usuario creado correctamente",
                         });
                     }).catch(error => {
+                        console.error(error);
                         res.status(500).json({
                             message: "Algo salio mal!",
                         });
@@ -53,6 +54,7 @@ function signUp(req, res) {
             });
         }
     }).catch(error => {
+        console.error(error);
         res.status(500).json({
             message: "Algo salio mal!",
         });
