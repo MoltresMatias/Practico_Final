@@ -1,11 +1,11 @@
 
 const express = require('express');
 const PORT = process.env.PORT || 3000
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 
-const pg = require('pg');
+//const pg = require('pg');
 
-const postsRoute = require('./routes/posts');
+const productsRoute = require('./routes/products');
 const userRoute = require('./routes/user');
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use("/posts", postsRoute)
+app.use("/products", productsRoute)
 app.use("/user", userRoute);
 
 app.get('/', (req, res) => {

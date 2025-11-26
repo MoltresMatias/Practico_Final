@@ -3,25 +3,26 @@ const models = require('../models')
 
 
 //Funcion para guardar informacion en las tablas.
-function save(req, res) {
+function create(req, res) {
 
-    const post = {
+    const product = {
         title: req.body.title,
         content: req.body.content,
-        imageUrl: req.body.image_url,
+        cant: req.body.cant,
         categoryId: req.body.category_id,
         userId: 1
     }
 
     //validacion con fastest-validator
     const schema = {
-        title: { type: "string", optional: false, max: "100" },
-        content: { type: "string", optional: false, max: "500" },
+        title: { type: "string", optional: false, max: 100 },
+        content: { type: "string", optional: false, max: 500 },
+        cant: { type: "number", optional: false, max: 500 },
         categoryId: { type: "number", optional: false }
     }
 
     const v = new Validator();
-    const validationResponse = v.validate(post, schema);
+    const validationResponse = v.validate(product, schema);
 
     if (validationResponse !== true) {
         return res.status(400).json({
@@ -31,10 +32,10 @@ function save(req, res) {
     }
     //fin de la validacion
 
-    models.Publicacion.create(post).then(result => {
+    models.Productos.create(product).then(result => {
         res.status(201).json({
-            message: "Publicacion creada correctamente",
-            post: result
+            message: "Productos creados correctamente",
+            product: result
         });
     }).catch(error => {
         res.status(500).json({
@@ -45,12 +46,12 @@ function save(req, res) {
 }
 
 //Funcion para mostar lo que contiene la tabla segun el Id.
-function show(req, res) {
+function detail(req, res) {
     const id = req.params.id;
 
-    models.Publicacion.findByPk(id).then(result => {
+    models.Productos.findByPk(id).then(result => {
         if (!result) {
-            return res.status(404).json({ message: "Publicación no encontrada" });
+            return res.status(404).json({ message: "Producto no encontrado" });
         }
         res.status(200).json(result);
     }).catch(error => {
@@ -61,8 +62,8 @@ function show(req, res) {
 }
 
 //Funcion para mostrar los que contiene toda la tabla.
-function index(req, res) {
-    models.Publicacion.findAll().then(result => {
+function list(req, res) {
+    models.Productos.findAll().then(result => {
         res.status(200).json(result);
     }).catch(error => {
         res.status(500).json({
@@ -77,15 +78,16 @@ function update(req, res) {
     const updatedPost = {
         title: req.body.title,
         content: req.body.content,
-        imageUrl: req.body.image_url,
+        cant: req.body.cant,
         categoryId: req.body.category_id,
     }
 
     const userId = 1;
     // validando las actualizaciones 
     const schema = {
-        title: { type: "string", optional: false, max: "100" },
-        content: { type: "string", optional: false, max: "500" },
+        title: { type: "string", optional: false, max: 100 },
+        content: { type: "string", optional: false, max: 500 },
+        cant: { type: "number", optional: false, max: 500 },
         categoryId: { type: "number", optional: false }
     }
 
@@ -100,10 +102,10 @@ function update(req, res) {
     }
     //fin de la validacion
 
-    models.Publicacion.update(updatedPost, { where: { id: id, userId: userId } }).then(result => {
+    models.Productos.update(updatedPost, { where: { id: id, userId: userId } }).then(result => {
         res.status(200).json({
-            message: "Post actualizado exitosamente",
-            post: updatedPost
+            message: "Producto actualizado exitosamente",
+            product: updatedPost
         })
     }).catch(error => {
         res.status(500).json({
@@ -114,13 +116,13 @@ function update(req, res) {
 }
 
 //Funcion para borrar toda la informacion de un Id.
-function destroy(req, res) {
+function remove(req, res) {
     const id = req.params.id;
     const userId = 1;
 
-    models.Publicacion.destroy({ where: { id: id, userId: userId } }).then(result => {
+    models.Productos.destroy({ where: { id: id, userId: userId } }).then(result => {
         res.status(200).json({
-            message: "Post borrado exitosamente"
+            message: "Producto borrado exitosamente"
         })
     }).catch(error => {
         res.status(500).json({
@@ -133,9 +135,9 @@ function destroy(req, res) {
 
 //Exportado de los modulos
 module.exports = {
-    save: save,
-    show: show,
-    index: index,
+    create: create,
+    detail: detail,
+    list: list,
     update: update,
-    destroy: destroy
+    remove: remove
 }

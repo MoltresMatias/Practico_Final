@@ -96,7 +96,7 @@ function login(req, res) {
     })
 }
 
-function show(req, res) {
+function detail(req, res) {
     const id = req.params.id;
 
     models.Usuarios.findByPk(id).then(result => {
@@ -111,7 +111,7 @@ function show(req, res) {
     });
 }
 
-function destroy(req, res) {
+function remove(req, res) {
     const id = req.params.id;
     const userId = 1;
 
@@ -194,7 +194,7 @@ function updateUser(req, res) {
     }
 }
 
-function index(req, res) {
+function list(req, res) {
     models.Usuarios.findAll().then(result => {
         res.status(200).json(result);
     }).catch(error => {
@@ -208,8 +208,8 @@ function index(req, res) {
 module.exports = {
     signUp: signUp,
     login: login,
-    show: show,
-    destroy: destroy,
+    detail: detail,
+    remove: remove,
     updateUser: updateUser,
-    index: index
+    list: list
 }
